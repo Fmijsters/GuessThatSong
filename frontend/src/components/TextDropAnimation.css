@@ -1,0 +1,32 @@
+.text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.animated-text {
+    display: flex;
+}
+
+.animated-letter {
+    opacity: 0;
+    animation: dropAnimation 0.1s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.animation-triggered .animated-letter {
+    animation: none; /* Reset animation when triggered */
+}
+
+@keyframes dropAnimation {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

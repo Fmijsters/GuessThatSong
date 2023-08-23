@@ -1,0 +1,54 @@
+/* Podium.css */
+
+.podium {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-evenly;
+}
+
+.podium-place {
+    text-align: center;
+    position: relative;
+    width: fit-content;
+    display: flex;
+    height: 100px;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.podium-number {
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 10px;
+    width: 100px;
+    text-align: center;
+}
+
+
+.podium-block {
+    /*position: absolute;*/
+    width: 100px;
+}
+
+.block-gold {
+    background-color: gold;
+    height: 80px;
+
+}
+
+.block-silver {
+    background-color: silver;
+    height: 70px;
+
+}
+
+.block-bronze {
+    background-color: #cd7f32;
+    height: 60px;
+
+}

@@ -1,0 +1,35 @@
+/* Checkbox.css */
+.custom-checkbox {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.custom-checkbox input {
+    display: none;
+}
+
+.checkbox-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #FFF;
+    background-color: #000;
+    margin-right: 8px;
+    position: relative;
+}
+
+.checkbox-icon::after {
+    content: '\2713'; /* Checkmark symbol */
+    color: #FFF;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.custom-checkbox input:checked ~ .checkbox-icon::after {
+    opacity: 1;
+}

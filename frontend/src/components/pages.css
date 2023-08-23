@@ -1,0 +1,280 @@
+.pub-table {
+    width: 100%;
+    max-width: 800px;
+}
+
+.table-container {
+    width: 100%;
+}
+
+.pub-table tr {
+    text-align: left;
+}
+
+html, body, #app, #app > div {
+    height: 100%;
+    background-color: #121212;
+    color: #FFFFFF;
+    font-family: "Roboto Mono", monospace;
+
+}
+
+.main-button {
+    background-color: #1DB954;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: #0E7A35;
+}
+
+.secondary-button {
+    background-color: #FFC107;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.secondary-button:hover {
+    background-color: #E0A800;
+}
+
+
+.disabled {
+    background-color: #B91D41;
+}
+
+.disabled:hover {
+    background-color: #7A0E27;
+}
+
+.table-container {
+    display: flex;
+    float: left;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-input-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: flex-end;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #FFFFFF; /* White text color */
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #CCCCCC; /* Light gray text color */
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #999999; /* Slightly lighter gray text color */
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+select {
+    padding: 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #FFFFFF;
+}
+
+option {
+    color: #FFF;
+    background-color: #000;
+    padding: 10px;
+}
+
+checkbox {
+    color: #FFF;
+    background-color: #000;
+    padding: 10px;
+}
+
+.create-pub-input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.seed-label {
+    background-color: #000;
+    margin: 5px;
+    padding: 6px;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #FFC107;
+    color: #FFC107;
+}
+
+.search-result-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #FFC107;
+    max-width: 299px;
+    width: 299px;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0 0 5px 5px;
+}
+
+.search-result {
+    cursor: pointer;
+    width: 260px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-result:hover {
+    background-color: #454545;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.song-icon,
+.artist-icon,
+.finish-icon {
+    width: 20px;
+    height: 20px;
+    fill: #777777;
+    transition: fill 0.3s; /* Add a smooth transition for color changes */
+}
+
+.song-icon.green,
+.artist-icon.green,
+.finish-icon.green {
+    fill: #1DB954; /* Green color for icons when value is true */
+}
+
+.table-score-board {
+    width: 100%;
+    border: 1px solid #FFC107;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.table-score-board td {
+    text-align: center;
+
+}
+
+.table-score-board tr {
+
+
+}
+
+.song-info-block {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: fit-content;
+    border-radius: 8px;
+    min-width: 250px;
+    background-color: #f0f0f0;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.album-cover {
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+}
+
+.song-details {
+    flex-grow: 1;
+    width: fit-content;
+}
+
+.song-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.artists {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    margin-top: 10px;
+    margin-right: auto;
+    background-color: #E0A800;
+    color: #000;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.username {
+    margin-right: 10px;
+}
+
+.progress-value {
+    margin-left: 20px;
+}
