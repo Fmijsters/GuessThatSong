@@ -1,9 +1,9 @@
+import axios from "axios";
 import { SpotifyApiClient } from "./axios-instance";
 
 export const searchArtistsOrTracks = async (
 	query,
 	type,
-	searchTerm,
 	setSearchResults
 ) => {
 	let apiUrl = "https://api.spotify.com/v1/search";
@@ -11,7 +11,8 @@ export const searchArtistsOrTracks = async (
 		params: { q: query, type: type, limit: 20 },
 	});
 	let searchResults: any = response;
-	let results = searchResults.data[`${type}s`].items.map((result) => {
+	let results = searchResults.data[`${type}s`].items.filter(result => result !== null).map((result) => {
+		console.log(result);
 		if (type === "track")
 			return {
 				name: result.name,
@@ -136,13 +137,15 @@ export const addPlaylistSongsToSongList = async (
 	});
 
 	let newTrackList: any[] = [];
-	response.data.items.forEach((item: any) => {
+	for (let i = 0; i < response.data.items.length; i++) {
+		const item = response.data.items[i];
 		const searchResult = item.track;
-		if (searchResult && searchResult.preview_url) {
+		if (searchResult) {
 			let albumCover;
 			if (searchResult.album.images.length > 0) {
 				albumCover = searchResult.album.images[0];
 			}
+
 			let track = {
 				albumCover: albumCover,
 				name: searchResult.name,
@@ -150,13 +153,14 @@ export const addPlaylistSongsToSongList = async (
 					name: artist.name,
 					id: artist.id,
 				})),
-				previewUrl: searchResult.preview_url,
+				previewUrl: "",
 				id: searchResult.id,
 			};
 			newTrackList.push(track);
 		}
-	});
+	}
 
+	console.log(newTrackList.length, "new tracks found");
 	const finalTrackList: any[] = [];
 	finalTrackList.push(...newTrackList);
 	for (const track of tracklist) {
@@ -171,6 +175,7 @@ export const addPlaylistSongsToSongList = async (
 			finalTrackList.push(track);
 		}
 	}
+	console.log(finalTrackList.length, "tracks in total");
 	setTrackList(finalTrackList);
 
 	if (response.data.next) {

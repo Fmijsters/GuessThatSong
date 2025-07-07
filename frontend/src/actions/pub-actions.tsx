@@ -9,7 +9,7 @@ export const createPub = async (pub: {
   trackList: any[];
   rounds: number;
 }) => {
-  const apiUrl = process.env.BACKEND_URL + "/api/pubs/createpub";
+  const apiUrl = process.env.REACT_APP_BACKEND_URL + "/api/pubs/createpub";
   let response = await GTSApiClient.post(apiUrl, pub);
   if (response.data.id) window.location.href = "/pub/" + response.data.id;
 };

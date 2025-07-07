@@ -282,7 +282,6 @@ export default function CreatePubPage() {
 									if (e.target.value.length > 0 && e.target.value !== "")
 										searchArtistsOrTracks(
 											artist,
-											setSearchResults,
 											"artist",
 											setSearchResults
 										);
@@ -316,7 +315,6 @@ export default function CreatePubPage() {
 									if (e.target.value.length > 0 && e.target.value !== "")
 										searchArtistsOrTracks(
 											playlist,
-											setSearchResults,
 											"playlist",
 											setSearchResults
 										);
@@ -350,7 +348,6 @@ export default function CreatePubPage() {
 									if (e.target.value.length > 0 && e.target.value !== "")
 										searchArtistsOrTracks(
 											track,
-											setSearchResults,
 											"track",
 											setSearchResults
 										);

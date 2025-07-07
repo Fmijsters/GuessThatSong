@@ -4,11 +4,11 @@ import re
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.db.models import Count
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-
+import requests
 from .models import Pub, Track, Artist
 
 
@@ -86,7 +86,6 @@ def remove_pub(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def create_pub(request):
     data = json.loads(request.body)
     pub_name = data.get("name")
@@ -127,10 +126,16 @@ def create_pub(request):
         album_cover = track['albumCover']['url']
         track_object = Track(id=track['id'], name=song_name, display_name=track['name'],
                              preview_url=track['previewUrl'], album_cover=album_cover)
-
-        track_object.save()
-        track_object.artists.set(all_artists)
-        all_tracks.append(track_object)
+        result = requests.get(f"https://api.deezer.com/search?q=track:\"{track['name']}\" artist:\"{track['artists'][0]['name']}\"")
+        print(track['name'], track['artists'][0]['name'])
+        data = result.json()["data"]
+        if len(data) > 0:
+            track_object.preview_url = data[0]['preview']
+            print("Found preview url for", track['name'], ":", track_object.preview_url,"from Deezer", data[0]['title'])
+        if track_object.preview_url:
+            track_object.save()
+            track_object.artists.set(all_artists)
+            all_tracks.append(track_object)
 
     pub = Pub(name=pub_name, password=pub_password, type=pub_type, teams=pub_teams, owner=owner,
               max_members=max_members, rounds=rounds)
