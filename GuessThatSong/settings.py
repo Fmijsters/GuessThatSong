@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ SECRET_KEY = "django-insecure-&y=&7@h74i0a($yxu6j@p5l&2^spir2w67n+b2!c9z9k3y2h%v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.0.104", 'localhost']
+ALLOWED_HOSTS = ["192.168.0.104", 'localhost',"feff-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app","86cc-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app","https://f45a-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app","https://4c62-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app","a6c4-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app"]
 
 # Application definition
 
@@ -71,7 +72,15 @@ ROOT_URLCONF = "GuessThatSong.urls"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://192.168.0.104:3000"
+    "http://192.168.0.104:3000",
+    "https://f6f6-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app",
+    "https://86cc-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app",
+    "https://f45a-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app",
+    "https://4c62-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app",
+    "https://4c62-2a02-a452-135f-1-f530-5ce4-c647-d2d9.ngrok-free.app"
+]
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    '*',
 ]
 
 TEMPLATES = [
