@@ -18,6 +18,11 @@ function LoginPage() {
                 <div className="login-content">
                     <h1>Login</h1>
                     <div className="login-input-container">
+                        <form style={{ display: "flex", flexDirection: "column", gap: 16 }} onSubmit={async (e) => {
+                            e.preventDefault();
+                            handleLogin(username, password, setError)
+
+                        }}>
                         <input
                             type="text"
                             placeholder="Username"
@@ -31,17 +36,19 @@ function LoginPage() {
                             onChange={e => setPassword(e.target.value)}
                         />
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            <button className="main-button" onClick={() => {
-                                handleLogin(username, password, setError)
-                            }}>
+
+                                <button className="main-button" type="submit">
                                 Login
                             </button>
-                            <button className="secondary-button" style={{ marginTop: 10 }} onClick={() => {
+                            </div>
+                        </form>
+
+
+                        <button className="secondary-button" style={{ marginTop: 10 }} onClick={() => {
                                 window.location.href = "/createuser"
                             }}>
                                 Create account
-                            </button>
-                        </div>
+                        </button>
                     </div>
                     {error && <div className="error-popup">{error}</div>}
                 </div>

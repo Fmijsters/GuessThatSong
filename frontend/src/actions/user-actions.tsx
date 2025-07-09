@@ -22,10 +22,15 @@ export const handleLogin = async (username, password, setError) => {
         const apiUrl = process.env.REACT_APP_BACKEND_URL + '/api/users/login';
         let response = await axios
             .post(apiUrl, { username, password })
+        if (response.status !== 200) {
+            setError('Login failed');
+            return
+        }
         const token = response.data.token;
         localStorage.setItem('authToken', token);
         localStorage.setItem('username', username);
-        // window.location.href = '/';}
+
+        window.location.href = '/';
     }
     catch (error) {
         console.error('Login failed:', error);

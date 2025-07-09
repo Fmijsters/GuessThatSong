@@ -3,7 +3,7 @@
     background-color: #1DB954;
     color: #FFFFFF;
     display: flex;
-
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     padding-left: 40px;

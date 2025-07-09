@@ -1,29 +1,9 @@
 import Navbar from "./navigation.header";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import { getRecords, getTimeRecords } from "../actions/leaderboard-actions";
 
-function getRecords(setRecords) {
-    const apiUrl = 'http://192.168.0.104:8000/api/tracks/records/get';
-    axios.get(apiUrl)
-        .then(response => {
-            console.log(response.data.records)
-            setRecords(response.data.records);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-}
 
-function getTimeRecords(setTimeRecords) {
-    const apiUrl = 'http://192.168.0.104:8000/api/tracks/records/time/get';
-    axios.get(apiUrl)
-        .then(response => {
-            setTimeRecords(response.data.records);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-}
 
 export default function LeaderboardPage() {
     const [records, setRecords] = useState([])
