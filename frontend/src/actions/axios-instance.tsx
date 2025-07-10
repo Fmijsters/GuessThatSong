@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 export const GTSApiClient = axios.create({
   headers: {
     "X-CSRFToken": Cookies.get("csrftoken"),
-    Authorization: "Token " + localStorage.getItem("userToken"),
+    Authorization: "Token " + localStorage.getItem("authToken"),
   },
 });
 

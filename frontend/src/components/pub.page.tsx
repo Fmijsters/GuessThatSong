@@ -64,7 +64,7 @@ const getInterpolatedColor = (percentage) => {
 };
 
 function getPub(pubId, setPub) {
-  const apiUrl = "http://192.168.0.104:8000/api/pubs/get/" + pubId + "/";
+  const apiUrl = process.env.REACT_APP_BACKEND_URL + "/api/pubs/get/" + pubId + "/";
   axios
     .get(apiUrl)
     .then((response) => {

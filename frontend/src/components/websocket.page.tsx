@@ -50,7 +50,7 @@ class WebSocketComponent extends Component<socketProps, socketState> {
     } = this.props;
 
     const socket = new WebSocket(
-      "ws://192.168.0.104:8000/ws/" +
+      process.env.REACT_APP_BACKEND_URL + "/ws/" +
         this.props.randomString +
         "/" +
         +pubId +

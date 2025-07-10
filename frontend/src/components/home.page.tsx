@@ -2,43 +2,11 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import "./pages.css";
 import Navbar from "./navigation.header";
+import { checkPasswordCorrect, deletePub, getPubs } from '../actions/pub-actions';
 
-function getPubs(setPubs) {
-    const apiUrl = 'http://192.168.0.104:8000/api/pubs';
 
-    axios.get(apiUrl)
-        .then(response => {
-            setPubs(response.data);
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-}
 
-function checkPasswordCorrect(pubId, password) {
-    const apiUrl = 'http://192.168.0.104:8000/api/pubs/join';
-    const authToken = localStorage.getItem('authToken');
-    let headers = {headers: {Authorization: "Token " + localStorage.getItem('authToken')}}
-    axios.post(apiUrl, {
-        id: pubId,
-        password: password,
-    }, headers)
-        .then(response => {
-            console.log('Response headers:', response.headers);
-            console.log(response.data.isAuthenticated)
-            if (response.data.isAuthenticated == true) {
-                window.location.href = '/pub/' + pubId
-                localStorage.setItem('userId', response.data.userId)
 
-            } else {
-                window.alert("Wrong password buddy!")
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            window.location.href = "/login"
-        });
-}
 
 function HomePage() {
     const [pubs, setPubs] = useState([]);
@@ -64,17 +32,7 @@ function HomePage() {
     );
 }
 
-function deletePub(id) {
-    const apiUrl = 'http://192.168.0.104:8000/api/pubs/delete';
-    axios.post(apiUrl, {id: id}, {headers: {Authorization: "Token " + localStorage.getItem('authToken')}})
-        .then(response => {
-            window.location.reload()
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            window.location.href = "/login"
-        });
-}
+
 
 function displayPubs(pubs) {
     if (!pubs.length) {

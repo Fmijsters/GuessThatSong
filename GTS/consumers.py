@@ -14,6 +14,7 @@ from .models import Pub
 class ChatConsumer(WebsocketConsumer):
 
     def connect(self):
+        print("Connecting to room", self.scope['url_route']['kwargs']['room_name'], "with user", self.scope['url_route']['kwargs']['user_id'])
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.consumer_id = self.scope['url_route']['kwargs']['user_id']
         self.room_group_name = 'chat_%s' % self.room_name
