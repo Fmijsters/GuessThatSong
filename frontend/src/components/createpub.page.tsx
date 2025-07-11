@@ -8,6 +8,8 @@ import {
 	generateRecommendations,
 	searchArtistsOrTracks,
 } from "../actions/spotify-actions";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { TrashIcon } from "lucide-react";
 
 export default function CreatePubPage() {
 	const [up, setUp] = useState(0);
@@ -22,139 +24,11 @@ export default function CreatePubPage() {
 	const [rounds, setRounds] = useState(10);
 	const [track, setTrack] = useState("");
 	const [playlist, setPlaylist] = useState("");
+	const [showSongs, setShowSongs] = useState(false);
 	const [selectedSeeds, setSelectedSeeds] = useState([]);
 	const [searchResults, setSearchResults] = useState([]);
 	const [trackList, setTrackList] = useState([]);
-	const [searchType, setSearchType] = useState("genre");
-	const [selectedGenre, setSelectedGenre] = useState("emo");
-	const availableGenres = [
-		"acoustic",
-		"afrobeat",
-		"alt-rock",
-		"alternative",
-		"ambient",
-		"anime",
-		"black-metal",
-		"bluegrass",
-		"blues",
-		"bossanova",
-		"brazil",
-		"breakbeat",
-		"british",
-		"cantopop",
-		"chicago-house",
-		"children",
-		"chill",
-		"classical",
-		"club",
-		"comedy",
-		"country",
-		"dance",
-		"dancehall",
-		"death-metal",
-		"deep-house",
-		"detroit-techno",
-		"disco",
-		"disney",
-		"drum-and-bass",
-		"dub",
-		"dubstep",
-		"edm",
-		"electro",
-		"electronic",
-		"emo",
-		"folk",
-		"forro",
-		"french",
-		"funk",
-		"garage",
-		"german",
-		"gospel",
-		"goth",
-		"grindcore",
-		"groove",
-		"grunge",
-		"guitar",
-		"happy",
-		"hard-rock",
-		"hardcore",
-		"hardstyle",
-		"heavy-metal",
-		"hip-hop",
-		"holidays",
-		"honky-tonk",
-		"house",
-		"idm",
-		"indian",
-		"indie",
-		"indie-pop",
-		"industrial",
-		"iranian",
-		"j-dance",
-		"j-idol",
-		"j-pop",
-		"j-rock",
-		"jazz",
-		"k-pop",
-		"kids",
-		"latin",
-		"latino",
-		"malay",
-		"mandopop",
-		"metal",
-		"metal-misc",
-		"metalcore",
-		"minimal-techno",
-		"movies",
-		"mpb",
-		"new-age",
-		"new-release",
-		"opera",
-		"pagode",
-		"party",
-		"philippines-opm",
-		"piano",
-		"pop",
-		"pop-film",
-		"post-dubstep",
-		"power-pop",
-		"progressive-house",
-		"psych-rock",
-		"punk",
-		"punk-rock",
-		"r-n-b",
-		"rainy-day",
-		"reggae",
-		"reggaeton",
-		"road-trip",
-		"rock",
-		"rock-n-roll",
-		"rockabilly",
-		"romance",
-		"sad",
-		"salsa",
-		"samba",
-		"sertanejo",
-		"show-tunes",
-		"singer-songwriter",
-		"ska",
-		"sleep",
-		"songwriter",
-		"soul",
-		"soundtracks",
-		"spanish",
-		"study",
-		"summer",
-		"swedish",
-		"synth-pop",
-		"tango",
-		"techno",
-		"trance",
-		"trip-hop",
-		"turkish",
-		"work-out",
-		"world-music",
-	];
+	const [searchType, setSearchType] = useState("playlist");
 	let spotify = <span style={{ color: "#0F0" }}>Spotify Authorized</span>;
 	let at = localStorage.getItem("access_token");
 	if (at === null || at === undefined || at === "") {
@@ -312,7 +186,7 @@ export default function CreatePubPage() {
 								value={playlist}
 								onChange={(e) => {
 									setPlaylist(e.target.value);
-									if (e.target.value.length > 0 && e.target.value !== "")
+									if (e.target.value.length > 1 && e.target.value !== "")
 										searchArtistsOrTracks(
 											playlist,
 											"playlist",
@@ -358,51 +232,51 @@ export default function CreatePubPage() {
 					</>
 				);
 				break;
-			case "genre":
-				searchBox = (
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							justifyContent: "space-between",
-							width: "100%",
-						}}
-					>
-						<select
-							value={selectedGenre}
-							onChange={(e) => {
-								setSelectedGenre(e.target.value);
-							}}
-						>
-							<option key={""} value={"empty"}></option>
-							{availableGenres
-								.filter((genre) => {
-									return !selectedSeeds
-										.map((seed: any) => seed.name)
-										.includes(genre);
-								})
-								.map((genre, i) => {
-									return (
-										<option key={i} value={genre}>
-											{genre.charAt(0).toUpperCase() + genre.slice(1)}
-										</option>
-									);
-								})}
-						</select>
-						<button
-							className={"secondary-button"}
-							onClick={() => {
-								if (selectedGenre === "empty") return;
-								let selectedSeedsCopy: any = selectedSeeds;
-								selectedSeedsCopy.push({ name: selectedGenre, type: "genre" });
-								setSelectedSeeds(selectedSeedsCopy);
-								setSelectedGenre("empty");
-							}}
-						>
-							Add to Seed
-						</button>
-					</div>
-				);
+			// case "genre":
+			// 	searchBox = (
+			// 		<div
+			// 			style={{
+			// 				display: "flex",
+			// 				flexDirection: "row",
+			// 				justifyContent: "space-between",
+			// 				width: "100%",
+			// 			}}
+			// 		>
+			// 			<select
+			// 				value={selectedGenre}
+			// 				onChange={(e) => {
+			// 					setSelectedGenre(e.target.value);
+			// 				}}
+			// 			>
+			// 				<option key={""} value={"empty"}></option>
+			// 				{availableGenres
+			// 					.filter((genre) => {
+			// 						return !selectedSeeds
+			// 							.map((seed: any) => seed.name)
+			// 							.includes(genre);
+			// 					})
+			// 					.map((genre, i) => {
+			// 						return (
+			// 							<option key={i} value={genre}>
+			// 								{genre.charAt(0).toUpperCase() + genre.slice(1)}
+			// 							</option>
+			// 						);
+			// 					})}
+			// 			</select>
+			// 			{/* <button
+			// 				className={"secondary-button"}
+			// 				onClick={() => {
+			// 					if (selectedGenre === "empty") return;
+			// 					let selectedSeedsCopy: any = selectedSeeds;
+			// 					selectedSeedsCopy.push({ name: selectedGenre, type: "genre" });
+			// 					setSelectedSeeds(selectedSeedsCopy);
+			// 					setSelectedGenre("empty");
+			// 				}}
+			// 			>
+			// 				Add to Seed
+			// 			</button> */}
+			// 		</div>
+			// 	);
 		}
 	}
 	let generateRecommendationsButton;
@@ -462,16 +336,23 @@ export default function CreatePubPage() {
 			>
 				Create your own Pub
 			</h1>
-			<div
-				style={{
+			<div style={{
+				width: "100%",
+				maxWidth: 1100,
+				marginLeft: "auto",
+				marginRight: "auto",
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				gap: 60,
+			}}>
+				<div style={{
 					display: "flex",
 					flexDirection: "row",
 					alignItems: "flex-start",
 					justifyContent: "space-evenly",
 					width: "100%",
-					maxWidth: 1100,
-					marginLeft: "auto",
-					marginRight: "auto",
+
 				}}
 			>
 				<div
@@ -499,7 +380,7 @@ export default function CreatePubPage() {
 						<label htmlFor={"password"}>Password</label>
 						<input
 							id={"password"}
-              type="password"
+								type="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
@@ -572,7 +453,7 @@ export default function CreatePubPage() {
 						alignItems: "flex-start",
 					}}
 				>
-					<span>
+						{/* <span>
 						Selected Seeds{" "}
 						<span
 							style={{ color: selectedSeeds.length === 5 ? "#F00" : "#0F0" }}
@@ -580,7 +461,7 @@ export default function CreatePubPage() {
 							{selectedSeeds.length}/5
 						</span>
 						:
-					</span>
+					</span> */}
 					{selectedArtistsDisplay}
 					<br />
 					<span>Total songs in list</span>
@@ -611,9 +492,9 @@ export default function CreatePubPage() {
 							<option key={"playlist"} value={"playlist"}>
 								Playlist
 							</option>
-							<option key={"genre"} value={"genre"}>
+								{/* <option key={"genre"} value={"genre"}>
 								Genre
-							</option>
+							</option> */}
 						</select>
 					</div>
 
@@ -627,6 +508,79 @@ export default function CreatePubPage() {
 						Make sure that there are atleast 20 songs in the tracklist
 					</span>
 				</div>
+
+				</div>
+				<button
+					className={"main-button"}
+					style={{ width: 200, marginTop: 20 }}
+					onClick={() => {
+						setShowSongs(!showSongs);
+					}}
+				>
+					{showSongs ? "Hide Songs" : "Show Songs"}
+				</button>
+				{showSongs && trackList.length > 0 && <Table style={{ width: "60vw" }}>
+					<TableCaption>A list of your added songs.</TableCaption>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Title</TableHead>
+							<TableHead>Artist</TableHead>
+							<TableHead>Album</TableHead>
+							<TableHead>Remove</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{trackList.map((track: any) => {
+							let artist = track.artists.join(" & ");
+							if (track.artists.length > 1) {
+								artist = track.artists
+									.map((artist: any) => artist.name)
+									.join(" & ");
+							} else if (track.artists.length === 1) {
+								artist = track.artists[0].name;
+							} else {
+								artist = "Unknown Artist";
+							}
+							return (
+								<TableRow key={track.id}>
+									<TableCell>
+										{track.name.length > 50
+											? track.name.substring(0, 50) + "..."
+											: track.name}
+									</TableCell>
+									<TableCell>
+										{artist}
+									</TableCell>
+									<TableCell>
+										{track.albumCover && track.albumCover.url ? (
+											<img
+												src={track.albumCover.url}
+												alt={"No image"}
+												style={{ maxWidth: 50, maxHeight: 50 }}
+											/>
+										) : (
+											<span>No image</span>
+										)}
+									</TableCell>
+									<TableCell>
+										<button
+											className={"secondary-button"}
+											onClick={() => {
+												let trackListCopy = trackList;
+												trackListCopy = trackListCopy.filter(
+													(t: any) => t.id !== track.id
+												);
+												setTrackList(trackListCopy);
+											}}
+										>
+											<TrashIcon />
+										</button>
+									</TableCell>
+								</TableRow>
+							);
+						})}
+					</TableBody>
+				</Table>}
 			</div>
 		</>
 	);

@@ -6,9 +6,10 @@ from threading import Timer
 import numpy as np
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+import requests
 from rest_framework.authtoken.models import Token
 
-from .models import Pub
+from .models import Pub, Track
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -358,7 +359,7 @@ class ChatConsumer(WebsocketConsumer):
             word_part = word_part.lower()
             for song_part in song_parts:
                 distance = self.jaccard_distance(word_part.lower(), song_part.lower())
-                if distance <= 0.4:
+                if distance <= 0.3:  
                     self.channel_layer.user_correct_guess_dict[self.user.id].append(song_part.lower())
         if len(self.channel_layer.user_correct_guess_dict[self.user.id]) > 0:
             self.score_users()
@@ -453,12 +454,17 @@ class ChatConsumer(WebsocketConsumer):
 
         self.status_update_message("Picking a new song", "SUCCESS")
 
-        song = random.sample(list(self.channel_layer.pub.track_list.all()), 1)[0]
+        song: Track = random.sample(list(self.channel_layer.pub.track_list.all()), 1)[0]
         counter = 0
         while song.name in self.channel_layer.history:
             song = random.sample(list(self.channel_layer.pub.track_list.all()), 1)[0]
             if counter == 20:
                 break
+        result = requests.get(f"https://api.deezer.com/search?q=track:\"{song.name}\" artist:\"{song.artists[0]['name']}\"")
+        data = result.json()["data"]
+        if len(data) > 0:
+            song.preview_url = data[0]['preview']
+            print("Found preview url for", song.name, ":", song.preview_url,"from Deezer", data[0]['title'])
         self.channel_layer.history.append(song.name)
         self.channel_layer.song = song.name.replace("_", "")
         self.channel_layer.display_name = song.display_name
@@ -469,6 +475,7 @@ class ChatConsumer(WebsocketConsumer):
         else:
             self.channel_layer.fastest_guesser = ""
         self.channel_layer.artists = [artist.name for artist in song.artists.all()]
+        
         self.channel_layer.preview_url = song.preview_url
         self.channel_layer.album_cover = song.album_cover
 
